@@ -1,0 +1,31 @@
+# Module not found: Error can't resolve 'child_process', how to fix?
+
+ 1. Install dependencies:
+	 2. `Install dependencies: npm install url stream-browserify os-browserify util path-browserify browserify-fs browserify-zlib https-browserify stream-http net-browserify crypto-browserify tls-browserify assert buffer`
+ 2. Locate webpack.config.js
+	 3. `node_modules\react-scripts\config\webpack.config.js`
+ 3. Add fallback object to resolve
+	 4. `fallback: {
+        url: require.resolve("url/"),
+        stream: require.resolve("stream-browserify"),
+        os: require.resolve("os-browserify/browser"),
+        util: require.resolve("util/"),
+        path: require.resolve("path-browserify"),
+        child_process: false,
+        fs: require.resolve("browserify-fs"),
+        zlib: require.resolve("browserify-zlib"),
+        https: require.resolve("https-browserify"),
+        http: require.resolve("stream-http"),
+        net: require.resolve("net-browserify"),
+        crypto: require.resolve("crypto-browserify"),
+        tls: require.resolve("tls-browserify"),
+        assert: require.resolve("assert/"),
+        buffer: require.resolve("buffer"),
+        process: false
+      }   `
+ 4. Add plugins to Webpack:
+	 4. `Add plugins
+	new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+      }),`
